@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>All the tickets</title>
+</head>
+<div id="table" ></div>
+<br>
+
+<div>
+ADD TICKET
+<form>
+  Title: <input type="text" id = "title"><br>
+ Description: <input type="text" id="description">
+ <br>
+  <input type="button" value = "addTicket" onclick="addTicket()">
+</form>
+</div>
+
+<div>
+DELETE TICKET BY ID:
+<input type = "text" id = "delete-id">
+<input type = "button" value ="deleteTicket" onclick = "deleteTicket()" >
+</div>
+<body>
+
+</body>
+
+</html>
+ 
+<script>
+
+	function retrieveTickets() {
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if (this.readyState == 4) {
+				var jsonData = JSON.parse(this.responseText);
+				var htmlTable = "<table border=1>";
+				htmlTable += "<tr><td>ID</td><td>Title</td><td>Description</td></tr>";
+				for(var i = 0 ; i < jsonData.length; i++){
+					htmlTable += "<tr><td>" + jsonData[i].id + "</td> <td>" + jsonData[i].title + "</td><td>" + jsonData[i].description + "</td></tr>";
+				}
+			
+				
+				htmlTable += "</table>";
+				document.getElementById("table").innerHTML = htmlTable;
+			}
+		}
+		xhr.open("GET", "http://localhost:8082/api/ticket/", true);
+		xhr.send();
+	}
+	retrieveTickets();
+	
+	function addTicket(){
+		var theObject = {};
+		theObject.title = document.getElementById("title").value;
+		theObject.description = document.getElementById("description").value;
+		var jsonObject = JSON.stringify(theObject);
+
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+			console.log(this.responseText);
+		}
+		xhr.open("POST","http://localhost:8082/api/ticket/", true);
+		xhr.setRequestHeader("Content-type", "application/json");
+		xhr.send(jsonObject);
+
+
+		console.log(theObject);
+		console.log(jsonObject);
+	}
+	
+	function deleteTicket(){
+		var id = document.getElementById("delete-id").value;
+		var url = "http://localhost:8082/api/ticket/" + id;
+		var xhr = new XMLHttpRequest();
+		xhr.open("DELETE", url, true);
+		xhr.send();
+	}
+</script>
