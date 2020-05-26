@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.laszlo.bugtracker.domein.Project;
 import com.laszlo.bugtracker.domein.Ticket;
 
 @RestController
@@ -17,6 +18,8 @@ import com.laszlo.bugtracker.domein.Ticket;
 public class TicketController {
 	@Autowired
 	TicketRepository<Ticket> ticketRepository;
+	@Autowired
+	ProjectRepository<Project> projectRepository;
 		
 	@GetMapping("/")
 	public Iterable<Ticket> getTickets() {
@@ -30,13 +33,27 @@ public class TicketController {
 		return ticketRepository.save(ticket);
 	}
 	
+	//POST MAPPING TEST MET PROJECT ID
+	@PostMapping("/{id}")
+	public Ticket addTicketWithProject(@RequestBody Ticket ticket,@PathVariable(value = "id") String projectId) {
+		System.out.println("addTicketWithProject called");
+		Project project = projectRepository.findById(Long.parseLong(projectId)).get();
+		Ticket ticketReturnen = ticketRepository.save(ticket);
+		project.addTicket(ticket);
+		projectRepository.save(project);
+		System.out.println("Ticket toegevoegd aan project?.");
+		return ticketReturnen;
+	}
+	
 	@DeleteMapping("/{id}")
 	public void deleteTicketById(@PathVariable(value = "id") String ticketId) {
 		System.out.println("deleteTicketById called");
 		ticketRepository.deleteById(Long.parseLong(ticketId));
 	}
 
-	@GetMapping("/{id}")
+//	@GetMapping("/{id}"){
+//		
+//	}
 //	
 //	@GetMapping("/{id}")
 //	public Contactpersoon verkrijgContactpersoon(@PathVariable(value = "id") String contactpersoonId) {
