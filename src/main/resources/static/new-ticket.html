@@ -182,12 +182,32 @@
   <!-- TYPE -->
   <label for="type">Type</label>
   <select class="form-control" id = "type">
-    <option>Bug</option>
-    <option>Other</option>
-    <option>*</option>
-    <option>*</option>
+    <option value = "0">Bug/Error</option>
+    <option value = "1">New functionality</option>
+    <option value = "2">Testing</option>
+    <option value = "3">Styling</option> 
+    <option value = "4">Other</option>
   </select>
     <br>
+    <!-- STATUS -->
+    <label for="type">Status</label>
+    <select class="form-control" id = "status">
+      <option value = "1">OPEN</option>
+      <option value = "2">IN-PROGRESS</option>
+      <option value = "3">ON-HOLD</option>
+      <option value = "4">FINISHED</option> 
+    </select>
+      <br>
+
+       <!-- PRIORITY -->
+    <label for="type">Priority</label>
+    <select class="form-control" id = "priority">
+      <option value = "1">LOW</option>
+      <option value = "2">MEDIUM</option>
+      <option value = "3">HIGH</option>
+      <option value = "4">NONE</option> 
+    </select>
+      <br>
 
   <!-- RANDOM MARKER -->
     <div class="form-group">
@@ -200,7 +220,7 @@
     </div>
 
   <!-- SUBMIT BUTTON-->
-    <button type="submit" class="btn btn-primary" onclick = "addTicket()">Submit</button>
+    <button type="submit" class="btn btn-primary" onclick = "addTicketWithProject()">Submit</button>
   </form>
 
 

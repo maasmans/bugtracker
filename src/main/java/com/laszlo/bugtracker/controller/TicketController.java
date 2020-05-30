@@ -38,10 +38,10 @@ public class TicketController {
 	public Ticket addTicketWithProject(@RequestBody Ticket ticket,@PathVariable(value = "id") String projectId) {
 		System.out.println("addTicketWithProject called");
 		Project project = projectRepository.findById(Long.parseLong(projectId)).get();
+		ticket.setProjectId(projectId);
 		Ticket ticketReturnen = ticketRepository.save(ticket);
 		project.addTicket(ticket);
 		projectRepository.save(project);
-		System.out.println("Ticket toegevoegd aan project?.");
 		return ticketReturnen;
 	}
 	

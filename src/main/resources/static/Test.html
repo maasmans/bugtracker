@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>My chart.js </title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+    <script src ="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+    <div>
+        <canvas id = "myChart"></canvas>
+    </div>
+</body>
+
+<script>
+    let myChart = document.getElementById('myChart').getContext('2d');
+
+    //global options
+    Chart.defaults.global.defaultFontFamily = 'Lato';
+    Chart.defaults.global.defaultFontFamily = 18;
+    Chart.defaults.global.defaultFontFamily = '#777';
+
+
+
+
+    let massPopChart = new Chart(myChart, {
+        type: 'pie',
+        data:{
+            labels: ['A', 'B', 'C', 'D', 'E'],
+            datasets:[{
+                label: 'population',
+                data:[
+                    141424,
+                    151555,
+                    151255,
+                    50000,
+                    200000,
+                ],
+                // backgroundColor: 'green'
+                backgroundColor: ['red','green','blue', 'black', 'yellow'],
+                borderWidth: 1,
+                borderColor: '#777',
+                hoverBorderWidth: 3,
+                hoverBorderColor: '#000'
+
+            }]
+        },
+        options:{}
+    })
+
+</script>
+    
+
+</html>
