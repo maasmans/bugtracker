@@ -1,3 +1,17 @@
+/* Added below for chart (TO BE DONE) */
+
+.charts{
+  display:grid;
+  grid-template-columns: 50% 50%;
+  /* spacing with gap grid-gap for both*/
+  grid-column-gap : 1em;
+  grid-row-gap : 1em;
+}
+
+.second-chart{
+
+}
+
 body {
   font-size: .875rem;
 }
