@@ -30,6 +30,19 @@ function createTicketTable(jsObject) {
   document.getElementById("ticket-table").innerHTML = htmlTable;
 }
 
+function addProject(){
+  var theObject = {};
+  theObject.projectName = document.getElementById("projectName").value;
+  var jsonObject = JSON.stringify(theObject);
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function(){
+    console.log(this.responseText);
+  }
+  xhr.open("POST",("http://localhost:8082/api/project/"), true);
+  xhr.setRequestHeader("Content-type", "application/json");
+  xhr.send(jsonObject);
+}
+
 //-------------------------------
 // CODE FOR THE GRAPHS
 function createStatusChart() {
@@ -80,9 +93,6 @@ function setStatusChart(jsObject) {
   myStatusChart.data.datasets[0].data[3] = amountFinished;
   myStatusChart.update();
 };
-
-
-
 
 function createPriorityChart() {
   let myChart = new Chart(document.getElementById("second-chart"), {

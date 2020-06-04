@@ -48,6 +48,19 @@ function addTicket(){
   xhr.send(jsonObject);
 }
 
+function addProject(){
+  var theObject = {};
+  theObject.projectName = document.getElementById("projectName").value;
+  var jsonObject = JSON.stringify(theObject);
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function(){
+    console.log(this.responseText);
+  }
+  xhr.open("POST",("http://localhost:8082/api/project/"), true);
+  xhr.setRequestHeader("Content-type", "application/json");
+  xhr.send(jsonObject);
+}
+
 function addTicketWithProject(){
   console.log("addTicketWithProject called")
   var theObject = {};
