@@ -1,4 +1,3 @@
-
 function retrieveTickets(useDataFunction) {
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
@@ -19,11 +18,15 @@ function createTicketTable(jsObject) {
     '<th>Title</th>' +
     '<th>Description</th>' +
     '<th>Date created</th>' +
+    '<th>Delete</th>'+
     '</tr>' +
     '</thead>' +
     '<tbody>'
   for (var i = 0; i < jsObject.length; i++) {
-    htmlTable += "<tr><td>" + jsObject[i].id + "</td> <td>" + jsObject[i].title + "</td><td>" + jsObject[i].description + "</td><td>" + jsObject[i].createdString + "</td></tr>";
+    htmlTable += "<tr><td>" + jsObject[i].id + "</td> <td>" + jsObject[i].title + "</td><td>" + jsObject[i].description 
+    + "</td><td>" + jsObject[i].createdString + "</td><td>"+ 
+    '<button onclick = "deleteTicket('+ jsObject[i].id +')"  style= "border: none;"> <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></button>';
+    + "</td></tr>";
   }
 
   htmlTable += "</tbody></table>";
@@ -42,6 +45,15 @@ function addProject(){
   xhr.setRequestHeader("Content-type", "application/json");
   xhr.send(jsonObject);
 }
+
+function deleteTicket(id){
+var xhr = new XMLHttpRequest();
+xhr.open("DELETE", ("http://localhost:8082/api/ticket/" + id), true);
+xhr.send();
+refresh();
+}
+
+
 
 //-------------------------------
 // CODE FOR THE GRAPHS
@@ -151,6 +163,11 @@ function setPriorityChart(jsObject) {
 
 let myStatusChart = createStatusChart();
 let myPriorityChart = createPriorityChart();
+
+function refresh(){
 retrieveTickets(setStatusChart);
 retrieveTickets(setPriorityChart);
 retrieveTickets(createTicketTable)
+}
+
+refresh();
